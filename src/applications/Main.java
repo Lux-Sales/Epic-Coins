@@ -2,70 +2,69 @@ package applications;
 
 import java.util.Scanner;
 
-import missions.Desafios;
+import missions.Challenges;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ola");
-		System.out.println("Quantos personagens estao aptos para ir Fornalha Infernal?");
-		int personagens = sc.nextInt();
-		Desafios fornalha = new Desafios(personagens);
-		System.out.println("Quantos personagens estao aptos para ir Altar da Ruína?");
-		personagens = sc.nextInt();
-		Desafios altar = new Desafios(personagens);
-		System.out.println("Quantos personagens estao aptos para ir Torre das Ilusões?");
-		personagens = sc.nextInt();
-		Desafios torre = new Desafios(personagens);
-
-		System.out.println("Você já realizou algum desafio épico hoje?Responda 'y' para sim e 'n' para não.");
+		System.out.println("Hello");
+		System.out.println("How many characters is fit to go ''Fornalha Infernal''?");
+		int characters = sc.nextInt();
+		Challenges fornalha = new Challenges(characters);
+		System.out.println("How many characters is fit to go ''Altar da Ruina''?");
+		characters = sc.nextInt();
+		Challenges altar = new Challenges(characters);
+		System.out.println("How many characters is fit to go ''Torre das Ilusoes''?");
+		characters = sc.nextInt();
+		Challenges torre = new Challenges(characters);
+		System.out.println("Did you realize any challenge today(y/n)?");
 		char bol = sc.next().charAt(0);
-		if (bol == 'n') {
-			fornalha.addMoeda(4*fornalha.getPersonagens());
-			altar.addMoeda(4*altar.getPersonagens());
+		if(bol=='n') {
+			fornalha.addCoins(4*fornalha.getCharacters());
+			altar.addCoins(4*altar.getCharacters());
+			int times = torre.getCharacters()*4;
 
-			for (int i = 0; i < torre.getPersonagens()*4; i++) {
-					System.out.println("Quais andares pretende ir?");
-					int andar = sc.nextInt();
-					if (andar <= 10) {
-						torre.addMoeda(1);
-					}
-					else if (andar > 10 && andar <= 20) {
-						torre.addMoeda(2);
-					} else {
-						torre.addMoeda(3);
-					}
-				}
-			}
-			
-		
-		else {
-			System.out.println("Quantidade de vezes jogadas Fornalha Infernal:");
-			int qtd = sc.nextInt();
-			fornalha.addMoeda((4)*(fornalha.getPersonagens())- qtd);
-			System.out.println("Quantidade de vezes jogadas Altar da Ruína:");
-			qtd = sc.nextInt();
-			altar.addMoeda((4)*(altar.getPersonagens()) - qtd);
-			System.out.println("Quantidade de vezes jogada Torre das Ilusões:");
-			qtd = sc.nextInt();
-			System.out.println("Quais andares ainda pretende ir?");
-			for (int i = 0; i < (torre.getPersonagens()*4) - qtd; i++) {
-				int andar = sc.nextInt();
-				if (andar <= 10) {
-					torre.addMoeda(1);
-				}
-				else if (andar > 10 && andar <= 20) {
-					torre.addMoeda(2);
-				} else {
-					torre.addMoeda(3);
-				}
-	
-			}
-			
-		System.out.println(fornalha.getMoedas() + altar.getMoedas() + torre.getMoedas());
-		sc.close();
+			System.out.println("You have " + times + " times to go ''Torre das ilusoes''");
+			System.out.println("Please, input how many times you want to go between the 1 to 10 floor:");
+			int played = sc.nextInt();
+			times = times-played;
+			torre.addCoins(played);
+			System.out.println("You have " + times + " times to go ''Torre das ilusoes''");
+			System.out.println("Please, input how many times you want to go between the 11 to 20 floor:");
+			played = sc.nextInt();
+			times = times-played;
+			torre.addCoins(played*2);
+			System.out.println("So, you be able to go " + times + " times between 21 to 30 floor");
+			torre.addCoins(times*3);
 		}
+			else
+			{
+			System.out.println("How many times did you played ''Fornalha Infernal''?");
+			int times = sc.nextInt();
+			fornalha.addCoins((4)*(fornalha.getCharacters())- times);
+			System.out.println("How many times did you played ''Altar da Ruina''?");
+			times = sc.nextInt();
+			altar.addCoins((4)*(altar.getCharacters()) - times);
+			System.out.println("How many times did you played ''Torre das Ilusoes''? ");
+			int played = sc.nextInt();
+			times = torre.getCharacters()*4 - played;
+			System.out.println("You have " + times + " times to go ''Torre das ilusoes''");
+			System.out.println("Please, input how many times you want to go between the 1 to 10 floor:");
+			times = times-played;
+			torre.addCoins(played);
+			System.out.println("You have " + times + " times to go ''Torre das ilusoes''");
+			System.out.println("Please, input how many times you want to go between the 11 to 20 floor:");
+			played = sc.nextInt();
+			times = times-played;
+			torre.addCoins(played*2);
+			System.out.println("So, you be able to go " + times + " times between 21 to 30 floor");
+			torre.addCoins(times*3);
+			
+			
+			
 	}
-}
+		System.out.println("This is how many epic coins you can farm: " + (fornalha.getCoins() + altar.getCoins() + torre.getCoins()));
+		sc.close();
+}}
 
